@@ -10,6 +10,7 @@
     <Product>$(Title)</Product>
     <Authors>t-asa2000</Authors>
     <Version>0.9.0</Version>
+    <Description>$(Title)</Description>
   </PropertyGroup>
 
 </Project>
