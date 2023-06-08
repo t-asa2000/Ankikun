@@ -1,0 +1,32 @@
+div.line{
+	line-height: 1.3;
+	font-family: "MS Gothic",monospace,fixed;
+    letter-spacing: 0.03em;
+	color:#253555;
+}
+
+h1,h2,h3,h4,h5,h6
+{
+	zoom:0.8;
+}
+
+a.code.hl_class,a.code.hl_function,span.keyword,span.keywordtype,div.line,.memname
+{
+	font-weight: bold;
+}
+
+.memname {
+	text-shadow: none;
+    letter-spacing: 0.03em;
+}
+
+span.comment
+{
+	background-color: #eee;
+    padding: 0.1em 0 0.2em;
+	font-weight: normal;
+}
+
+.memname tbody {
+	display: flex;
+}
