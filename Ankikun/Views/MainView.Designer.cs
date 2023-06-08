@@ -30,6 +30,10 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainView));
 			this.mainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+			this.mainToolbar = new System.Windows.Forms.ToolStrip();
+			this.新規NToolStripButton = new System.Windows.Forms.ToolStripButton();
+			this.開くOToolStripButton = new System.Windows.Forms.ToolStripButton();
+			this.保存SToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.tabControl = new System.Windows.Forms.TabControl();
 			this.examConfigTab = new System.Windows.Forms.TabPage();
 			this.startButton = new System.Windows.Forms.Button();
@@ -43,18 +47,14 @@
 			this.historiesDataGridView = new System.Windows.Forms.DataGridView();
 			this.itemsTab = new System.Windows.Forms.TabPage();
 			this.itemsDataGridView = new System.Windows.Forms.DataGridView();
-			this.mainToolbar = new System.Windows.Forms.ToolStrip();
-			this.新規NToolStripButton = new System.Windows.Forms.ToolStripButton();
-			this.開くOToolStripButton = new System.Windows.Forms.ToolStripButton();
-			this.保存SToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.mainTableLayoutPanel.SuspendLayout();
+			this.mainToolbar.SuspendLayout();
 			this.tabControl.SuspendLayout();
 			this.examConfigTab.SuspendLayout();
 			this.historiesTab.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.historiesDataGridView)).BeginInit();
 			this.itemsTab.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.itemsDataGridView)).BeginInit();
-			this.mainToolbar.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// mainTableLayoutPanel
@@ -72,6 +72,46 @@
 			this.mainTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
 			this.mainTableLayoutPanel.Size = new System.Drawing.Size(977, 656);
 			this.mainTableLayoutPanel.TabIndex = 0;
+			// 
+			// mainToolbar
+			// 
+			this.mainToolbar.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.mainToolbar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+			this.mainToolbar.ImageScalingSize = new System.Drawing.Size(20, 20);
+			this.mainToolbar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.新規NToolStripButton,
+            this.開くOToolStripButton,
+            this.保存SToolStripButton});
+			this.mainToolbar.Location = new System.Drawing.Point(0, 0);
+			this.mainToolbar.Name = "mainToolbar";
+			this.mainToolbar.Padding = new System.Windows.Forms.Padding(8, 3, 8, 3);
+			this.mainToolbar.Size = new System.Drawing.Size(977, 40);
+			this.mainToolbar.TabIndex = 4;
+			this.mainToolbar.Text = "toolStrip1";
+			// 
+			// 新規NToolStripButton
+			// 
+			this.新規NToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("新規NToolStripButton.Image")));
+			this.新規NToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.新規NToolStripButton.Name = "新規NToolStripButton";
+			this.新規NToolStripButton.Size = new System.Drawing.Size(114, 31);
+			this.新規NToolStripButton.Text = "新規作成(&N)";
+			// 
+			// 開くOToolStripButton
+			// 
+			this.開くOToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("開くOToolStripButton.Image")));
+			this.開くOToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.開くOToolStripButton.Name = "開くOToolStripButton";
+			this.開くOToolStripButton.Size = new System.Drawing.Size(78, 31);
+			this.開くOToolStripButton.Text = "開く(&O)";
+			// 
+			// 保存SToolStripButton
+			// 
+			this.保存SToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("保存SToolStripButton.Image")));
+			this.保存SToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.保存SToolStripButton.Name = "保存SToolStripButton";
+			this.保存SToolStripButton.Size = new System.Drawing.Size(81, 31);
+			this.保存SToolStripButton.Text = "保存(&S)";
 			// 
 			// tabControl
 			// 
@@ -133,15 +173,15 @@
 			this.lowRateCheckBox.AutoSize = true;
 			this.lowRateCheckBox.Location = new System.Drawing.Point(18, 109);
 			this.lowRateCheckBox.Name = "lowRateCheckBox";
-			this.lowRateCheckBox.Size = new System.Drawing.Size(170, 24);
+			this.lowRateCheckBox.Size = new System.Drawing.Size(171, 24);
 			this.lowRateCheckBox.TabIndex = 4;
-			this.lowRateCheckBox.Text = "正答率の低い問題のみ";
+			this.lowRateCheckBox.Text = "正答率が低い問題のみ";
 			this.lowRateCheckBox.UseVisualStyleBackColor = true;
 			// 
 			// reverseCheckBox
 			// 
 			this.reverseCheckBox.AutoSize = true;
-			this.reverseCheckBox.Location = new System.Drawing.Point(18, 79);
+			this.reverseCheckBox.Location = new System.Drawing.Point(18, 49);
 			this.reverseCheckBox.Name = "reverseCheckBox";
 			this.reverseCheckBox.Size = new System.Drawing.Size(176, 24);
 			this.reverseCheckBox.TabIndex = 5;
@@ -151,7 +191,7 @@
 			// shuffleCheckBox
 			// 
 			this.shuffleCheckBox.AutoSize = true;
-			this.shuffleCheckBox.Location = new System.Drawing.Point(18, 49);
+			this.shuffleCheckBox.Location = new System.Drawing.Point(18, 79);
 			this.shuffleCheckBox.Name = "shuffleCheckBox";
 			this.shuffleCheckBox.Size = new System.Drawing.Size(136, 24);
 			this.shuffleCheckBox.TabIndex = 6;
@@ -217,46 +257,8 @@
 			this.itemsDataGridView.RowTemplate.Height = 29;
 			this.itemsDataGridView.Size = new System.Drawing.Size(957, 571);
 			this.itemsDataGridView.TabIndex = 1;
-			// 
-			// mainToolbar
-			// 
-			this.mainToolbar.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.mainToolbar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-			this.mainToolbar.ImageScalingSize = new System.Drawing.Size(20, 20);
-			this.mainToolbar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.新規NToolStripButton,
-            this.開くOToolStripButton,
-            this.保存SToolStripButton});
-			this.mainToolbar.Location = new System.Drawing.Point(0, 0);
-			this.mainToolbar.Name = "mainToolbar";
-			this.mainToolbar.Padding = new System.Windows.Forms.Padding(8, 3, 8, 3);
-			this.mainToolbar.Size = new System.Drawing.Size(977, 40);
-			this.mainToolbar.TabIndex = 4;
-			this.mainToolbar.Text = "toolStrip1";
-			// 
-			// 新規NToolStripButton
-			// 
-			this.新規NToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("新規NToolStripButton.Image")));
-			this.新規NToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.新規NToolStripButton.Name = "新規NToolStripButton";
-			this.新規NToolStripButton.Size = new System.Drawing.Size(114, 31);
-			this.新規NToolStripButton.Text = "新規作成(&N)";
-			// 
-			// 開くOToolStripButton
-			// 
-			this.開くOToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("開くOToolStripButton.Image")));
-			this.開くOToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.開くOToolStripButton.Name = "開くOToolStripButton";
-			this.開くOToolStripButton.Size = new System.Drawing.Size(78, 31);
-			this.開くOToolStripButton.Text = "開く(&O)";
-			// 
-			// 保存SToolStripButton
-			// 
-			this.保存SToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("保存SToolStripButton.Image")));
-			this.保存SToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.保存SToolStripButton.Name = "保存SToolStripButton";
-			this.保存SToolStripButton.Size = new System.Drawing.Size(81, 31);
-			this.保存SToolStripButton.Text = "保存(&S)";
+			this.itemsDataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.itemsDataGridView_CellEndEdit);
+			this.itemsDataGridView.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.itemsDataGridView_RowsRemoved);
 			// 
 			// MainView
 			// 
@@ -266,9 +268,10 @@
 			this.Controls.Add(this.mainTableLayoutPanel);
 			this.Name = "MainView";
 			this.Text = "Form1";
-			this.Load += new System.EventHandler(this.Form1_Load);
 			this.mainTableLayoutPanel.ResumeLayout(false);
 			this.mainTableLayoutPanel.PerformLayout();
+			this.mainToolbar.ResumeLayout(false);
+			this.mainToolbar.PerformLayout();
 			this.tabControl.ResumeLayout(false);
 			this.examConfigTab.ResumeLayout(false);
 			this.examConfigTab.PerformLayout();
@@ -276,8 +279,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.historiesDataGridView)).EndInit();
 			this.itemsTab.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.itemsDataGridView)).EndInit();
-			this.mainToolbar.ResumeLayout(false);
-			this.mainToolbar.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
