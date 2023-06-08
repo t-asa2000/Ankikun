@@ -24,14 +24,9 @@ namespace Ankikun.Models
 		public BindingList<ExamHistory> Histories { get; set; } = new();
 
 		/// <summary>
-		/// XMLシリアライザー
-		/// </summary>
-		readonly static XmlSerializer serializer = new(typeof(Workbook));
-
-		/// <summary>
 		/// XML出力設定
 		/// </summary>
-		readonly static XmlWriterSettings writerSettings = new()
+		static XmlWriterSettings WriterSettings => new()
 		{
 			// エンコードをUTF-8にする
 			Encoding = new UTF8Encoding(false),
@@ -86,6 +81,7 @@ namespace Ankikun.Models
 		/// <returns>読み込めたらオブジェクトを返す</returns>
 		public static Workbook? LoadXML(string path)
 		{
+			XmlSerializer serializer = new(typeof(Workbook));
 			XmlReader? reader = null;
 			Workbook? imported = null;
 
@@ -112,18 +108,17 @@ namespace Ankikun.Models
 		/// <returns>保存できたかどうか</returns>
 		public bool SaveXML(string path)
 		{
+			XmlSerializer serializer = new(typeof(Workbook));
 			XmlWriter? writer = null;
 			bool result = true;
 
 			try
 			{
 				// フォルダが存在しなければ作成
-				DirectoryInfo? dir = Directory.GetParent(path);
-				if (dir == null) return false;
-				dir.Create();
+				Directory.GetParent(path)?.Create();
 
 				// 保存
-				writer = XmlWriter.Create(path, writerSettings);
+				writer = XmlWriter.Create(path, WriterSettings);
 				serializer.Serialize(writer, this);
 			}
 			catch (Exception)
