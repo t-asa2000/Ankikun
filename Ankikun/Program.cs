@@ -1,11 +1,14 @@
-using Ankikun.Views;
+﻿using Ankikun.Views;
 
 namespace Ankikun
 {
+	/// <summary>
+	/// メインプログラム
+	/// </summary>
 	internal static class Program
 	{
 		/// <summary>
-		///  The main entry point for the application.
+		/// エントリポイント
 		/// </summary>
 		[STAThread]
 		static void Main()

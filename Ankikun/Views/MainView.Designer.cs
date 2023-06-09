@@ -29,6 +29,10 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainView));
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.mainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
 			this.mainToolbar = new System.Windows.Forms.ToolStrip();
 			this.createToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -226,14 +230,31 @@
 			// 
 			this.historiesDataGridView.AllowUserToAddRows = false;
 			this.historiesDataGridView.AllowUserToOrderColumns = true;
+			this.historiesDataGridView.AllowUserToResizeRows = false;
 			this.historiesDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle1.Font = new System.Drawing.Font("Yu Gothic UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.historiesDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
 			this.historiesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+			dataGridViewCellStyle2.Font = new System.Drawing.Font("Yu Gothic UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.historiesDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
 			this.historiesDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.historiesDataGridView.Location = new System.Drawing.Point(3, 3);
 			this.historiesDataGridView.Name = "historiesDataGridView";
 			this.historiesDataGridView.ReadOnly = true;
 			this.historiesDataGridView.RowHeadersWidth = 51;
-			this.historiesDataGridView.RowTemplate.Height = 29;
+			this.historiesDataGridView.RowTemplate.Height = 33;
 			this.historiesDataGridView.Size = new System.Drawing.Size(957, 571);
 			this.historiesDataGridView.TabIndex = 1;
 			// 
@@ -251,13 +272,30 @@
 			// itemsDataGridView
 			// 
 			this.itemsDataGridView.AllowUserToOrderColumns = true;
+			this.itemsDataGridView.AllowUserToResizeRows = false;
 			this.itemsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle3.Font = new System.Drawing.Font("Yu Gothic UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.itemsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
 			this.itemsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+			dataGridViewCellStyle4.Font = new System.Drawing.Font("Yu Gothic UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+			dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.itemsDataGridView.DefaultCellStyle = dataGridViewCellStyle4;
 			this.itemsDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.itemsDataGridView.Location = new System.Drawing.Point(3, 3);
 			this.itemsDataGridView.Name = "itemsDataGridView";
 			this.itemsDataGridView.RowHeadersWidth = 51;
-			this.itemsDataGridView.RowTemplate.Height = 29;
+			this.itemsDataGridView.RowTemplate.Height = 33;
 			this.itemsDataGridView.Size = new System.Drawing.Size(957, 571);
 			this.itemsDataGridView.TabIndex = 1;
 			this.itemsDataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.itemsDataGridView_CellEndEdit);

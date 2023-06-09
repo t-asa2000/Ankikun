@@ -3,6 +3,9 @@ using System.ComponentModel;
 
 namespace Ankikun.Views
 {
+	/// <summary>
+	/// メイン画面(MainView)
+	/// </summary>
 	public partial class MainView : Form
 	{
 		/// <summary>
@@ -84,7 +87,7 @@ namespace Ankikun.Views
 				Application.ProductName,
 				MessageBoxButtons.YesNoCancel,
 				MessageBoxIcon.Exclamation,
-				MessageBoxDefaultButton.Button3);
+				MessageBoxDefaultButton.Button1);
 
 			// 保存に失敗した場合
 			if (result == DialogResult.Yes && !SaveFile())
@@ -168,6 +171,11 @@ namespace Ankikun.Views
 		/// <param name="e">イベント引数</param>
 		void itemsDataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
 		{
+			// 行の高さの調整
+			itemsDataGridView.AutoResizeRow(e.RowIndex, DataGridViewAutoSizeRowMode.AllCells);
+			int height = itemsDataGridView.Rows[e.RowIndex].Height;
+			itemsDataGridView.Rows[e.RowIndex].Height = (int)(height * 1.5);
+
 			if (itemsWatcher.IsChanged()) viewModel.EnableUnsavedState();
 			UpdateTagComboBox();
 		}
