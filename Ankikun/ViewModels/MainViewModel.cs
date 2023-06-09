@@ -80,9 +80,10 @@ namespace Ankikun.ViewModels
 		{
 			get
 			{
-				string title = Application.ProductName
+				string title = unsaved ? "*" : "";
+				title += file?.Name ?? "無題.xml";
+				title += " - " + Application.ProductName
 					+ " Ver." + Application.ProductVersion;
-				if (file != null) title = file.Name + " - " + title;
 				return title;
 			}
 		}
@@ -90,7 +91,15 @@ namespace Ankikun.ViewModels
 		/// <summary>
 		/// 未保存の変更があるかどうか
 		/// </summary>
-		public bool Unsaved { get; private set; }
+		public bool Unsaved
+		{
+			get => unsaved;
+			private set
+			{
+				unsaved = value;
+				UpdatedNotice(nameof(WindowTitle));
+			}
+		}
 
 		/// <summary>
 		/// ワークブックの問題
@@ -122,12 +131,132 @@ namespace Ankikun.ViewModels
 		/// </summary>
 		ExamConfig exam;
 
+		/// <summary>
+		/// 開いているファイル
+		/// </summary>
 		FileInfo? file = null;
 
 		/// <summary>
-		/// 未保存状態の切り替え
+		/// 未保存の変更があるかどうか
 		/// </summary>
-		public void ToggleUnsavedState() => Unsaved = true;
+		bool unsaved;
+
+		/// <summary>
+		/// 未保存状態にする(未保存の変更があることを知らせる)
+		/// </summary>
+		public void EnableUnsavedState() => Unsaved = true;
+
+		/// <summary>
+		/// 新しいファイルを作成
+		/// </summary>
+		public void CreateNewFile() => ChangeWorkbook(new());
+
+		/// <summary>
+		/// ファイルを開く
+		/// </summary>
+		/// <remarks>
+		/// 「開く」ダイアログボックスを使用
+		/// </remarks>
+		/// <returns>成功したらtrue</returns>
+		public bool OpenFile() => OpenFile(out _);
+
+		/// <summary>
+		/// ファイルを開く
+		/// </summary>
+		/// <remarks>
+		/// 「開く」ダイアログボックスを使用
+		/// </remarks>
+		/// <param name="cancel">キャンセルされたかどうか</param>
+		/// <returns>成功したらtrue</returns>
+		public bool OpenFile(out bool cancel)
+		{
+			OpenFileDialog ofd = new()
+			{
+				Title = "開く",
+				Filter = "XML ファイル(*.xml)|*.xml",
+				FileName = file?.Name ?? "",
+				RestoreDirectory = true
+			};
+
+			if (Directory.Exists(file?.DirectoryName))
+				ofd.InitialDirectory = file?.DirectoryName ?? "";
+
+			cancel = ofd.ShowDialog() != DialogResult.OK;
+			string path = ofd.FileName;
+			ofd.Dispose();
+
+			return !cancel && OpenFile(path);
+		}
+
+		/// <summary>
+		/// ファイルを開く
+		/// </summary>
+		/// <param name="path">ファイルパス</param>
+		/// <returns>成功したらtrue</returns>
+		public bool OpenFile(string path)
+		{
+			Workbook? workbook = Workbook.LoadXML(path);
+			if (workbook != null)
+			{
+				if (file?.FullName != path) file = new(path);
+				ChangeWorkbook(workbook);
+				return true;
+			}
+			return false;
+		}
+
+		/// <summary>
+		/// ファイルを保存
+		/// </summary>
+		/// <remarks>
+		/// 「名前を付けて保存」ダイアログボックスを使用
+		/// </remarks>
+		/// <returns>成功したらtrue</returns>
+		public bool SaveFile() => SaveFile(out _);
+
+		/// <summary>
+		/// ファイルを保存
+		/// </summary>
+		/// <remarks>
+		/// 「名前を付けて保存」ダイアログボックスを使用
+		/// </remarks>
+		/// <param name="cancel">キャンセルされたかどうか</param>
+		/// <returns>成功したらtrue</returns>
+		public bool SaveFile(out bool cancel)
+		{
+			SaveFileDialog sfd = new()
+			{
+				Title = "名前を付けて保存",
+				Filter = "XML ファイル(*.xml)|*.xml",
+				FileName = file?.Name ?? "",
+				RestoreDirectory = true
+			};
+
+			if (Directory.Exists(file?.DirectoryName))
+				sfd.InitialDirectory = file?.DirectoryName ?? "";
+
+			cancel = sfd.ShowDialog() != DialogResult.OK;
+			string path = sfd.FileName;
+			sfd.Dispose();
+
+			return !cancel && SaveFile(path);
+		}
+
+		/// <summary>
+		/// ファイルを保存
+		/// </summary>
+		/// <param name="path">ファイルパス</param>
+		/// <returns>成功したらtrue</returns>
+		public bool SaveFile(string path)
+		{
+			if (workbook.SaveXML(path))
+			{
+				if (file?.FullName != path) file = new(path);
+				Unsaved = false;
+				return true;
+			}
+			return false;
+		}
 
 		/// <summary>
 		/// プロパティの変更をビューに知らせる
@@ -143,6 +272,7 @@ namespace Ankikun.ViewModels
 		void ChangeWorkbook(Workbook workbook)
 		{
 			this.workbook = workbook;
+			Unsaved = false;
 			UpdatedNotice(nameof(Items));
 			UpdatedNotice(nameof(Histories));
 			UpdatedNotice(nameof(Tags));

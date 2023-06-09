@@ -31,9 +31,9 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainView));
 			this.mainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
 			this.mainToolbar = new System.Windows.Forms.ToolStrip();
-			this.新規NToolStripButton = new System.Windows.Forms.ToolStripButton();
-			this.開くOToolStripButton = new System.Windows.Forms.ToolStripButton();
-			this.保存SToolStripButton = new System.Windows.Forms.ToolStripButton();
+			this.createToolStripButton = new System.Windows.Forms.ToolStripButton();
+			this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
+			this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.tabControl = new System.Windows.Forms.TabControl();
 			this.examConfigTab = new System.Windows.Forms.TabPage();
 			this.startButton = new System.Windows.Forms.Button();
@@ -79,9 +79,9 @@
 			this.mainToolbar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
 			this.mainToolbar.ImageScalingSize = new System.Drawing.Size(20, 20);
 			this.mainToolbar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.新規NToolStripButton,
-            this.開くOToolStripButton,
-            this.保存SToolStripButton});
+            this.createToolStripButton,
+            this.openToolStripButton,
+            this.saveToolStripButton});
 			this.mainToolbar.Location = new System.Drawing.Point(0, 0);
 			this.mainToolbar.Name = "mainToolbar";
 			this.mainToolbar.Padding = new System.Windows.Forms.Padding(8, 3, 8, 3);
@@ -89,29 +89,32 @@
 			this.mainToolbar.TabIndex = 4;
 			this.mainToolbar.Text = "toolStrip1";
 			// 
-			// 新規NToolStripButton
+			// createToolStripButton
 			// 
-			this.新規NToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("新規NToolStripButton.Image")));
-			this.新規NToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.新規NToolStripButton.Name = "新規NToolStripButton";
-			this.新規NToolStripButton.Size = new System.Drawing.Size(114, 31);
-			this.新規NToolStripButton.Text = "新規作成(&N)";
+			this.createToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("createToolStripButton.Image")));
+			this.createToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.createToolStripButton.Name = "createToolStripButton";
+			this.createToolStripButton.Size = new System.Drawing.Size(114, 31);
+			this.createToolStripButton.Text = "新規作成(&N)";
+			this.createToolStripButton.Click += new System.EventHandler(this.createToolStripButton_Click);
 			// 
-			// 開くOToolStripButton
+			// openToolStripButton
 			// 
-			this.開くOToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("開くOToolStripButton.Image")));
-			this.開くOToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.開くOToolStripButton.Name = "開くOToolStripButton";
-			this.開くOToolStripButton.Size = new System.Drawing.Size(78, 31);
-			this.開くOToolStripButton.Text = "開く(&O)";
+			this.openToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripButton.Image")));
+			this.openToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.openToolStripButton.Name = "openToolStripButton";
+			this.openToolStripButton.Size = new System.Drawing.Size(78, 31);
+			this.openToolStripButton.Text = "開く(&O)";
+			this.openToolStripButton.Click += new System.EventHandler(this.openToolStripButton_Click);
 			// 
-			// 保存SToolStripButton
+			// saveToolStripButton
 			// 
-			this.保存SToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("保存SToolStripButton.Image")));
-			this.保存SToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.保存SToolStripButton.Name = "保存SToolStripButton";
-			this.保存SToolStripButton.Size = new System.Drawing.Size(81, 31);
-			this.保存SToolStripButton.Text = "保存(&S)";
+			this.saveToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripButton.Image")));
+			this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.saveToolStripButton.Name = "saveToolStripButton";
+			this.saveToolStripButton.Size = new System.Drawing.Size(81, 31);
+			this.saveToolStripButton.Text = "保存(&S)";
+			this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
 			// 
 			// tabControl
 			// 
@@ -268,6 +271,7 @@
 			this.Controls.Add(this.mainTableLayoutPanel);
 			this.Name = "MainView";
 			this.Text = "Form1";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainView_FormClosing);
 			this.mainTableLayoutPanel.ResumeLayout(false);
 			this.mainTableLayoutPanel.PerformLayout();
 			this.mainToolbar.ResumeLayout(false);
@@ -300,8 +304,8 @@
 		private CheckBox shuffleCheckBox;
 		private CheckBox strictCheckBox;
 		private ToolStrip mainToolbar;
-		private ToolStripButton 新規NToolStripButton;
-		private ToolStripButton 開くOToolStripButton;
-		private ToolStripButton 保存SToolStripButton;
+		private ToolStripButton createToolStripButton;
+		private ToolStripButton openToolStripButton;
+		private ToolStripButton saveToolStripButton;
 	}
 }
