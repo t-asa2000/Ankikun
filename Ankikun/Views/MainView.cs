@@ -1,5 +1,6 @@
 ﻿using Ankikun.ViewModels;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace Ankikun.Views
 {
@@ -28,6 +29,9 @@ namespace Ankikun.Views
 			// イベントハンドラの登録
 			viewModel.PropertyChanged += viewModel_PropertyChanged;
 
+			// アプリ情報の表示
+			ShowAppInfo();
+
 			// DataGridViewセル監視
 			itemsWatcher = new(itemsDataGridView);
 
@@ -47,6 +51,17 @@ namespace Ankikun.Views
 				, viewModel, nameof(viewModel.Items));
 			historiesDataGridView.DataBindings.Add(nameof(DataGridView.DataSource)
 				, viewModel, nameof(viewModel.Histories));
+		}
+
+		/// <summary>
+		/// アプリ情報の表示
+		/// </summary>
+		void ShowAppInfo()
+		{
+			appInfoLabel.Text = Application.ProductName
+				+ " Ver." + Application.ProductVersion
+				+ Environment.NewLine + Environment.NewLine
+				+ "開発者: " + Application.CompanyName;
 		}
 
 		/// <summary>
@@ -211,6 +226,34 @@ namespace Ankikun.Views
 		/// <param name="sender">送信元のオブジェクト</param>
 		/// <param name="e">イベント引数</param>
 		void saveToolStripButton_Click(object sender, EventArgs e) => SaveFile();
+
+		/// <summary>
+		/// 「公式 GitHub ページを開く」ボタンクリック時
+		/// </summary>
+		/// <param name="sender">送信元のオブジェクト</param>
+		/// <param name="e">イベント引数</param>
+		void githubButton_Click(object sender, EventArgs e)
+		{
+			Process.Start(new ProcessStartInfo()
+			{
+				UseShellExecute = true,
+				FileName = "https://github.com/t-asa2000/Ankikun"
+			});
+		}
+
+		/// <summary>
+		/// 「最新版のダウンロード」ボタンクリック時
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		void releasesButton_Click(object sender, EventArgs e)
+		{
+			Process.Start(new ProcessStartInfo()
+			{
+				UseShellExecute = true,
+				FileName = "https://github.com/t-asa2000/Ankikun/releases"
+			});
+		}
 
 		/// <summary>
 		/// フォームを閉じる時

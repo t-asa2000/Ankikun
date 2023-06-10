@@ -51,6 +51,10 @@
 			this.historiesDataGridView = new System.Windows.Forms.DataGridView();
 			this.itemsTab = new System.Windows.Forms.TabPage();
 			this.itemsDataGridView = new System.Windows.Forms.DataGridView();
+			this.appInfoTabPage = new System.Windows.Forms.TabPage();
+			this.releasesButton = new System.Windows.Forms.Button();
+			this.githubButton = new System.Windows.Forms.Button();
+			this.appInfoLabel = new System.Windows.Forms.Label();
 			this.mainTableLayoutPanel.SuspendLayout();
 			this.mainToolbar.SuspendLayout();
 			this.tabControl.SuspendLayout();
@@ -59,6 +63,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.historiesDataGridView)).BeginInit();
 			this.itemsTab.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.itemsDataGridView)).BeginInit();
+			this.appInfoTabPage.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// mainTableLayoutPanel
@@ -125,6 +130,7 @@
 			this.tabControl.Controls.Add(this.examConfigTab);
 			this.tabControl.Controls.Add(this.historiesTab);
 			this.tabControl.Controls.Add(this.itemsTab);
+			this.tabControl.Controls.Add(this.appInfoTabPage);
 			this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabControl.Location = new System.Drawing.Point(3, 43);
 			this.tabControl.Name = "tabControl";
@@ -301,6 +307,48 @@
 			this.itemsDataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.itemsDataGridView_CellEndEdit);
 			this.itemsDataGridView.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.itemsDataGridView_RowsRemoved);
 			// 
+			// appInfoTabPage
+			// 
+			this.appInfoTabPage.Controls.Add(this.releasesButton);
+			this.appInfoTabPage.Controls.Add(this.githubButton);
+			this.appInfoTabPage.Controls.Add(this.appInfoLabel);
+			this.appInfoTabPage.Location = new System.Drawing.Point(4, 29);
+			this.appInfoTabPage.Name = "appInfoTabPage";
+			this.appInfoTabPage.Padding = new System.Windows.Forms.Padding(3);
+			this.appInfoTabPage.Size = new System.Drawing.Size(963, 577);
+			this.appInfoTabPage.TabIndex = 3;
+			this.appInfoTabPage.Text = "アプリ情報";
+			this.appInfoTabPage.UseVisualStyleBackColor = true;
+			// 
+			// releasesButton
+			// 
+			this.releasesButton.Location = new System.Drawing.Point(15, 182);
+			this.releasesButton.Name = "releasesButton";
+			this.releasesButton.Size = new System.Drawing.Size(325, 41);
+			this.releasesButton.TabIndex = 1;
+			this.releasesButton.Text = "最新版のダウンロード";
+			this.releasesButton.UseVisualStyleBackColor = true;
+			this.releasesButton.Click += new System.EventHandler(this.releasesButton_Click);
+			// 
+			// githubButton
+			// 
+			this.githubButton.Location = new System.Drawing.Point(15, 135);
+			this.githubButton.Name = "githubButton";
+			this.githubButton.Size = new System.Drawing.Size(325, 41);
+			this.githubButton.TabIndex = 1;
+			this.githubButton.Text = "公式 GitHub ページを開く";
+			this.githubButton.UseVisualStyleBackColor = true;
+			this.githubButton.Click += new System.EventHandler(this.githubButton_Click);
+			// 
+			// appInfoLabel
+			// 
+			this.appInfoLabel.Location = new System.Drawing.Point(15, 17);
+			this.appInfoLabel.Name = "appInfoLabel";
+			this.appInfoLabel.Size = new System.Drawing.Size(325, 106);
+			this.appInfoLabel.TabIndex = 0;
+			this.appInfoLabel.Text = "[製品名] [製品バージョン]\r\n\r\n開発者: [会社名]";
+			this.appInfoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
 			// MainView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -308,7 +356,6 @@
 			this.ClientSize = new System.Drawing.Size(977, 656);
 			this.Controls.Add(this.mainTableLayoutPanel);
 			this.Name = "MainView";
-			this.Text = "Form1";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainView_FormClosing);
 			this.mainTableLayoutPanel.ResumeLayout(false);
 			this.mainTableLayoutPanel.PerformLayout();
@@ -321,6 +368,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.historiesDataGridView)).EndInit();
 			this.itemsTab.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.itemsDataGridView)).EndInit();
+			this.appInfoTabPage.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -345,5 +393,9 @@
 		private ToolStripButton createToolStripButton;
 		private ToolStripButton openToolStripButton;
 		private ToolStripButton saveToolStripButton;
+		private TabPage appInfoTabPage;
+		private Button githubButton;
+		private Label appInfoLabel;
+		private Button releasesButton;
 	}
 }
