@@ -29,12 +29,8 @@ namespace Ankikun.Models
 		[XmlIgnore]
 		public string TagsString
 		{
-			get => string.Join(", ", Tags); // 配列の値をカンマで結合
-			set
-			{
-				Tags = string.IsNullOrWhiteSpace(value) ? 
-					Array.Empty<string>() : value.Split(","); // カンマで分割
-			}
+			get => string.Join(", ", tags); // 配列の値をカンマで結合
+			set => tags = RemoveDuplicatedTags(value);
 		}
 
 		/// <summary>
@@ -44,11 +40,7 @@ namespace Ankikun.Models
 		public string[] Tags
 		{
 			get => tags;
-			set => tags = value
-				.Select(x => x.Trim()) // 先頭/末尾の空白を削除
-				.Where(y => !string.IsNullOrWhiteSpace(y)) // 空文字列を削除
-				.Distinct() // 重複した文字列を削除
-				.ToArray();
+			set => tags = RemoveDuplicatedTags(value);
 		}
 
 		/// <summary>
@@ -95,5 +87,25 @@ namespace Ankikun.Models
 		/// カウンターをリセット
 		/// </summary>
 		public void ResetCounter() => ClearedCount = AnsweredCount = 0;
+
+		/// <summary>
+		/// 重複したタグを削除
+		/// </summary>
+		/// <param name="tags">タグ(カンマ区切り)</param>
+		/// <returns>重複削除後の配列</returns>
+		static string[] RemoveDuplicatedTags(string tags)
+			=> string.IsNullOrWhiteSpace(tags) ?
+				Array.Empty<string>() : RemoveDuplicatedTags(tags.Split(","));
+
+		/// <summary>
+		/// 重複したタグを削除
+		/// </summary>
+		/// <param name="tags">タグ</param>
+		/// <returns>重複削除後の配列</returns>
+		static string[] RemoveDuplicatedTags(string[] tags)
+			=> tags.Select(x => x.Trim()) // 先頭/末尾の空白を削除
+				.Where(y => !string.IsNullOrWhiteSpace(y)) // 空文字列を削除
+				.Distinct() // 重複した文字列を削除
+				.ToArray();
 	}
 }
