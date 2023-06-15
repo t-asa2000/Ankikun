@@ -1,4 +1,5 @@
-﻿using Ankikun.ViewModels;
+﻿using Ankikun.Models;
+using Ankikun.ViewModels;
 using System.ComponentModel;
 using System.Diagnostics;
 
@@ -7,7 +8,7 @@ namespace Ankikun.Views
 	/// <summary>
 	/// メイン画面(MainView)
 	/// </summary>
-	public partial class MainView : Form
+	internal partial class MainView : Form
 	{
 		/// <summary>
 		/// ビューモデル
@@ -59,9 +60,9 @@ namespace Ankikun.Views
 		void ShowAppInfo()
 		{
 			appInfoLabel.Text = Application.ProductName
-				+ " Ver." + Application.ProductVersion
-				+ Environment.NewLine + Environment.NewLine
-				+ "開発者: " + Application.CompanyName;
+				+ " Ver." + Application.ProductVersion + Environment.NewLine
+				+ "アプリデータ バージョン: " + WorkbookXMLConverter.LatestVersion
+				+ Environment.NewLine + "開発者: " + Application.CompanyName;
 		}
 
 		/// <summary>

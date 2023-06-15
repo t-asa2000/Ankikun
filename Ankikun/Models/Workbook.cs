@@ -1,134 +1,106 @@
-﻿using System.ComponentModel;
-using System.Text;
-using System.Xml;
-using System.Xml.Serialization;
+﻿using Ankikun.Models.Interfaces;
+using System.ComponentModel;
+using System.Xml.Linq;
 
 namespace Ankikun.Models
 {
 	/// <summary>
 	/// 問題集(ワークブック)
 	/// </summary>
-	[XmlRoot]
-	public class Workbook
+	public class Workbook : IXMLObject
 	{
 		/// <summary>
 		/// 問題
 		/// </summary>
-		[XmlArray]
-		public BindingList<WorkbookItem> Items { get; set; } = new();
+		public BindingList<WorkbookItem> Items { get; }
 
 		/// <summary>
 		/// 確認テストの履歴
 		/// </summary>
-		[XmlArray]
-		public BindingList<ExamHistory> Histories { get; set; } = new();
+		public BindingList<Exam> Histories { get; }
+
+		public bool IsEmpty => Items.Count + Histories.Count == 0;
 
 		/// <summary>
-		/// XML出力設定
+		/// 初期化(コンストラクタ)
 		/// </summary>
-		static XmlWriterSettings WriterSettings => new()
+		public Workbook()
 		{
-			// エンコードをUTF-8にする
-			Encoding = new UTF8Encoding(false),
-			// インデントを有効にする
-			Indent = true,
-			// インデントをタブにする
-			IndentChars = "\t"
-		};
+			Items = new();
+			Histories = new();
+		}
+
+		/// <summary>
+		/// 初期化(コンストラクタ，XMLデシリアライズ)
+		/// </summary>
+		/// <param name="root">XElement オブジェクト</param>
+		public Workbook(XElement root)
+		{
+			List<WorkbookItem> items = root.Element(nameof(Items))?.Elements()
+				.Select(x => new WorkbookItem(x))
+				.Where(y => !y.IsEmpty)
+				.ToList() ?? new();
+			List<Exam> histories = root.Element(nameof(Histories))?.Elements()
+				.Select(x => new Exam(x))
+				.Where(y => !y.IsEmpty)
+				.ToList() ?? new();
+
+			Items = new(items);
+			Histories = new(histories);
+		}
+
+		public XElement Serialize() => Serialize(nameof(Workbook));
+
+		public XElement Serialize(string name)
+			=> new (name,
+				new XElement(nameof(Items), IXMLObject.Serialize(Items)),
+				new XElement(nameof(Histories), IXMLObject.Serialize(Histories))
+			);
 
 		/// <summary>
 		/// 確認テストの開始
 		/// </summary>
 		/// <param name="config">条件設定</param>
-		/// <returns>確認問題</returns>
-		public ExamItem[] StartExam(ExamConfig config)
+		/// <returns>確認テスト</returns>
+		public Exam? StartExam(ExamConfig config)
 		{
-			IEnumerable<ExamItem> items = Items
-				.Where(x => !config.LowRate || x.Rate < 50)
-				.Where(y => string.IsNullOrWhiteSpace(config.Tag)
-					|| y.Tags.Contains(config.Tag))
-				.Select(z => new ExamItem(z, config.Reverse));
+			// 確認テストの作成
+			Exam exam = new(Items, config);
 
-			if (config.Shuffle) items = items.OrderBy(x => Guid.NewGuid());
+			// 問題数が0の場合はnullを返す
+			if (exam.Items.Length == 0) return null;
 
-			return items.ToArray();
+			// 終了したら履歴に追加
+			exam.Finished += (sender, e) =>
+			{
+				if (!exam.IsEmpty) Histories.Insert(0, exam);
+			};
+
+			return exam;
 		}
 
 		/// <summary>
-		/// 確認テストの終了
+		/// XMLファイルを保存
 		/// </summary>
-		/// <param name="items">確認問題</param>
-		/// <param name="config">条件設定</param>
-		/// <returns>確認テストの履歴</returns>
-		public ExamHistory FinishExam(ExamItem[] items, ExamConfig config)
+		/// <param name="path">ファイルパス</param>
+		/// <returns>成功したらtrue</returns>
+		public bool SaveXML(string path)
 		{
-			foreach (ExamItem item in items) item.UpdateCounter();
-
-			ExamHistory history = new();
-			history.Cleared = items.Where(x => x.Result).Count();
-			history.Answered = items.Where(x => x.Challenged).Count();
-			history.Config = config;
-			
-			Histories.Insert(0, history);
-
-			return history;
+			WorkbookXMLConverter converter = new();
+			converter.SetObject(this);
+			return converter.Save(path);
 		}
 
 		/// <summary>
 		/// XMLファイルから読み込み
 		/// </summary>
 		/// <param name="path">ファイルパス</param>
-		/// <returns>読み込めたらオブジェクトを返す</returns>
+		/// <returns>Workbook オブジェクト</returns>
 		public static Workbook? LoadXML(string path)
 		{
-			XmlSerializer serializer = new(typeof(Workbook));
-			XmlReader? reader = null;
-			Workbook? imported = null;
-
-			try
-			{
-				/// 読み込み
-				reader = XmlReader.Create(path);
-				imported = (Workbook?)serializer.Deserialize(reader);
-			}
-			catch (Exception)
-			{
-
-			}
-
-			// ファイルを閉じる
-			reader?.Close();
-			return imported;
-		}
-
-		/// <summary>
-		/// XMLファイルとして保存
-		/// </summary>
-		/// <param name="path">ファイルパス</param>
-		/// <returns>保存できたかどうか</returns>
-		public bool SaveXML(string path)
-		{
-			XmlSerializer serializer = new(typeof(Workbook));
-			XmlWriter? writer = null;
-			bool result = true;
-
-			try
-			{
-				// フォルダが存在しなければ作成
-				Directory.GetParent(path)?.Create();
-
-				// 保存
-				writer = XmlWriter.Create(path, WriterSettings);
-				serializer.Serialize(writer, this);
-			}
-			catch (Exception)
-			{
-				result = false;
-			}
-
-			// ファイルを閉じる
-			writer?.Close();
-			return result;
+			WorkbookXMLConverter converter = new();
+			converter.Load(path);
+			return converter.GetObject();
 		}
 	}
 }

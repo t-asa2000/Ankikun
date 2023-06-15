@@ -109,7 +109,7 @@ namespace Ankikun.ViewModels
 		/// <summary>
 		/// 確認テストの履歴
 		/// </summary>
-		public BindingList<ExamHistory> Histories => workbook.Histories;
+		public BindingList<Exam> Histories => workbook.Histories;
 
 		/// <summary>
 		/// 全ての問題のタグ
@@ -149,7 +149,11 @@ namespace Ankikun.ViewModels
 		/// <summary>
 		/// 新しいファイルを作成
 		/// </summary>
-		public void CreateNewFile() => ChangeWorkbook(new());
+		public void CreateNewFile()
+		{
+			file = null;
+			ChangeWorkbook(new());
+		}
 
 		/// <summary>
 		/// ファイルを開く

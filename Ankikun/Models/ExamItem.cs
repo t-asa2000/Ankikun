@@ -8,17 +8,17 @@
 		/// <summary>
 		/// 問題文
 		/// </summary>
-		public string Question { get; private init; }
+		public string Question { get; }
 
 		/// <summary>
 		/// 答え
 		/// </summary>
-		public string Answer { get; private init; }
+		public string Answer { get; }
 
 		/// <summary>
 		/// 回答済みかどうか
 		/// </summary>
-		public bool Challenged { get; private set; } = false;
+		public bool Answered { get; private set; } = false;
 
 		/// <summary>
 		/// 正解したかどうか
@@ -28,16 +28,18 @@
 			get => result;
 			set
 			{
-				Challenged = true;
+				Answered = true;
 				result = value;
 			}
 		}
 
+		/// @private
 		/// <summary>
 		/// WorkbookItem オブジェクト
 		/// </summary>
-		readonly WorkbookItem? baseitem = null;
+		readonly WorkbookItem baseitem;
 
+		/// @private
 		/// <summary>
 		/// 正解したかどうか
 		/// </summary>
@@ -60,7 +62,7 @@
 		/// </summary>
 		public void UpdateCounter()
 		{
-			if (Challenged) baseitem?.UpdateCounter(Result);
+			if (Answered) baseitem.UpdateCounter(Result);
 		}
 
 	}
