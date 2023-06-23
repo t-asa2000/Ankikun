@@ -1,5 +1,4 @@
-﻿using Ankikun.Models.Interfaces;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Xml.Linq;
 
 namespace Ankikun.Models
@@ -77,30 +76,6 @@ namespace Ankikun.Models
 			};
 
 			return exam;
-		}
-
-		/// <summary>
-		/// XMLファイルを保存
-		/// </summary>
-		/// <param name="path">ファイルパス</param>
-		/// <returns>成功したらtrue</returns>
-		public bool SaveXML(string path)
-		{
-			WorkbookXMLConverter converter = new();
-			converter.SetObject(this);
-			return converter.Save(path);
-		}
-
-		/// <summary>
-		/// XMLファイルから読み込み
-		/// </summary>
-		/// <param name="path">ファイルパス</param>
-		/// <returns>Workbook オブジェクト</returns>
-		public static Workbook? LoadXML(string path)
-		{
-			WorkbookXMLConverter converter = new();
-			converter.Load(path);
-			return converter.GetObject();
 		}
 	}
 }

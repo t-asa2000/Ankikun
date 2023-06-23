@@ -199,13 +199,16 @@ namespace Ankikun.ViewModels
 		/// <returns>成功したらtrue</returns>
 		public bool OpenFile(string path)
 		{
-			Workbook? workbook = Workbook.LoadXML(path);
+			// XMLファイルから読み込み
+			Workbook? workbook = new WorkbookXMLConverter().Load(path);
 			if (workbook != null)
 			{
-				if (file?.FullName != path) file = new(path);
+				// 成功した場合はWorkbookを切り替える
+				file = new(path);
 				ChangeWorkbook(workbook);
 				return true;
 			}
+
 			return false;
 		}
 
@@ -253,12 +256,15 @@ namespace Ankikun.ViewModels
 		/// <returns>成功したらtrue</returns>
 		public bool SaveFile(string path)
 		{
-			if (workbook.SaveXML(path))
+			// XMLファイルに出力
+			if (new WorkbookXMLConverter().Save(workbook, path))
 			{
-				if (file?.FullName != path) file = new(path);
+				// 成功した場合は未保存状態を解除
+				file = new(path);
 				Unsaved = false;
 				return true;
 			}
+
 			return false;
 		}
 
