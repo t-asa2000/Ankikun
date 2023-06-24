@@ -81,6 +81,7 @@ namespace Ankikun.Models
 		[ReadOnly(true)]
 		public string Tag => config.Tag;
 
+		[Browsable(false)]
 		public bool IsEmpty => Date == null || Answered == 0;
 
 		/// <summary>
@@ -105,6 +106,7 @@ namespace Ankikun.Models
 			// 確認問題のシャッフル
 			if (config.Shuffle) items = items.OrderBy(x => Guid.NewGuid());
 
+			this.config = config;
 			Date = null;
 			Items = items.ToArray();
 		}
